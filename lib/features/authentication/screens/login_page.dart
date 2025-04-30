@@ -1,3 +1,4 @@
+import 'package:fashion_app/common/widgets/input_data.dart';
 import 'package:fashion_app/features/authentication/screens/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -29,51 +30,32 @@ class _LoginPageState extends State<LoginPage> {
                   style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 60),
-                TextFormField(
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    hintText: "example@email.com",
-                    labelText: "Email",
-                    border: OutlineInputBorder(),
-                  ),
-                  validator: (val) {
-                    if (val!.isEmpty) {
-                      return "This field is required";
-                    }
-                    if (val.length < 6) {
-                      return "Less Characters";
-                    }
+                InputData(
+                  isPassword: false,
+                  type: TextInputType.emailAddress,
+                  hintText: "example@email.com",
+                  labelText: "Email",
+                  extraValidate: (val) {
                     final reg = RegExp(
                       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$',
                     );
-                    if (!reg.hasMatch(val)) {
+                    if (!reg.hasMatch(val!)) {
                       return "Not Email";
                     }
                     return null;
                   },
-                  onSaved: (value) {
-                    print(value);
-                  },
+                  saved: (value) {},
                 ),
                 const SizedBox(height: 20),
-                TextFormField(
-                  keyboardType: TextInputType.visiblePassword,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    hintText: "Password",
-                    labelText: "Password",
-                    border: OutlineInputBorder(),
-                    
-                  ),
-                  validator: (val) {
-                    if (val!.isEmpty) {
-                      return "This field is required";
-                    }
-                    if (val.length < 6) {
-                      return "Less Characters";
-                    }
+                InputData(
+                  isPassword: true,
+                  type: TextInputType.visiblePassword,
+                  hintText: "Password",
+                  labelText: "Password",
+                  extraValidate: (val) {
                     return null;
                   },
+                  saved: (value) {},
                 ),
                 const SizedBox(height: 20),
                 SizedBox(
